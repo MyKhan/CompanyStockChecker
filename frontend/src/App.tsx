@@ -16,12 +16,12 @@ function App() {
     console.log(e);
   };
 
-  const onClick = async(e: SyntheticEvent) => {
+  const onClick = async (e: SyntheticEvent) => {
     const result = await searchCompanies(searchQuery);
 
-    if(typeof result === "string") {
+    if (typeof result === "string") {
       setServerError(result);
-    } else if(Array.isArray(result.data)) {
+    } else if (Array.isArray(result.data)) {
       setSearchResult(result.data);
     }
 
@@ -33,7 +33,7 @@ function App() {
     <div className="App">
       <Search onClick={onClick} search={searchQuery} handleChange={handleChange} />
       {serverError && <h1>{serverError}</h1>}
-      <CardList />
+      <CardList searchResults={searchResult} />
     </div>
   );
 }
