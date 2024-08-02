@@ -4,6 +4,7 @@ import CardList from './Components/CardList/CardList';
 import Search from './Components/Search/Search';
 import { CompanySearch } from './company.d';
 import { searchCompanies } from './api';
+import ListPortfolio from './Components/Portfolio/ListPortfolio/ListPortfolio';
 
 function App() {
 
@@ -18,6 +19,8 @@ function App() {
 
   const onPortfolioCreate = (e: any) => {
     e.preventDefault();
+    const exists = portfolioValues.find(value => value === e.target[0].value)
+    if (exists) return;
     const updatedPortfolio = [...portfolioValues, e.target[0].value];
     setPortfolioValues(updatedPortfolio);
     console.log(portfolioValues);
@@ -43,6 +46,7 @@ function App() {
         search={searchQuery}
         handleSearchChange={handleSearchChange} />
       {serverError && <h1>{serverError}</h1>}
+      <ListPortfolio portfolioValues={portfolioValues} />
       <CardList searchResults={searchResult}
         onPortfolioCreate={onPortfolioCreate} />
     </div>
