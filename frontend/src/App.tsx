@@ -17,15 +17,6 @@ function App() {
     setSearchQuery(e.target.value);
   };
 
-  const onPortfolioCreate = (e: any) => {
-    e.preventDefault();
-    const exists = portfolioValues.find(value => value === e.target[0].value)
-    if (exists) return;
-    const updatedPortfolio = [...portfolioValues, e.target[0].value];
-    setPortfolioValues(updatedPortfolio);
-    console.log(portfolioValues);
-  }
-
   const onSearchSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     const result = await searchCompanies(searchQuery);
@@ -39,6 +30,23 @@ function App() {
     console.log(searchResult);
   };
 
+  const onPortfolioCreate = (e: any) => {
+    e.preventDefault();
+    const exists = portfolioValues.find(value => value === e.target[0].value)
+    if (exists) return;
+    const updatedPortfolio = [...portfolioValues, e.target[0].value];
+    setPortfolioValues(updatedPortfolio);
+    console.log(portfolioValues);
+  }
+
+  const onPortfolioDelete = (e: any) => {
+    e.preventDefault();
+    const removed = portfolioValues.filter((value) => {
+      return value !== e.target[0].value;
+    });
+    setPortfolioValues(removed);
+  }
+
 
   return (
     <div className="App">
@@ -46,7 +54,7 @@ function App() {
         search={searchQuery}
         handleSearchChange={handleSearchChange} />
       {serverError && <h1>{serverError}</h1>}
-      <ListPortfolio portfolioValues={portfolioValues} />
+      <ListPortfolio portfolioValues={portfolioValues} onPortfolioDelete={onPortfolioDelete} />
       <CardList searchResults={searchResult}
         onPortfolioCreate={onPortfolioCreate} />
     </div>
