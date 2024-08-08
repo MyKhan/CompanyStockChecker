@@ -8,7 +8,7 @@ type Props = {
 const RatioList = ({ config, data }: Props) => {
     const renderedRows = config.map((row: any) => {
         return (
-            <li className='py-3 sm:py-4'>
+            <li className='py-6 sm:py-6'>
                 <div className='flex items-center space-x-4'>
                     <div className='flex-1 min-w-0'>
                         <p className='text-sm font-medium text-gray-900 truncate'>
@@ -23,13 +23,15 @@ const RatioList = ({ config, data }: Props) => {
                     </div>
                 </div>
             </li>
-        )
-    })
-    return <div className='bg-white shadow rounded-lg mb-4 ml-4 mt-4 p-4 sm:p-6 h-full'>
-        <ul className='divide-y divided-gray-200'>
-            {renderedRows}
-        </ul>
-    </div>;
+        );
+    });
+    return (
+        <div className='bg-white shadow rounded-lg mb-4 ml-4 mt-4 p-4 sm:p-6 h-full'>
+            <ul className='divide-y divided-gray-200'>
+                {renderedRows}
+            </ul>
+        </div>
+    );
 }
 
 export default RatioList
