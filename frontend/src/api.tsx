@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CompanyBalanceSheet, CompanyCashFlow, CompanyComparableData, CompanyIncomeStatement, CompanyKeyMetrics, CompanyProfile, CompanySearch } from "./company.d";
+import { CompanyBalanceSheet, CompanyCashFlow, CompanyComparableData, CompanyIncomeStatement, CompanyKeyMetrics, CompanyProfile, CompanySearch, CompanyTenK } from "./company.d";
 // const { AxiosError } = axios;
 
 interface SearchResponse {
@@ -100,6 +100,19 @@ export const getComparableData = async (query: string) => {
         console.log(data);
         return data;
     } catch (error: any) {
-        console.log("error message at getComparableData from API: ", error);
+        console.log("error message at getComparableData from API: ", error.message);
+    }
+}
+
+
+export const getTenK = async (query: string) => {
+    try {
+        const data = await axios.get<CompanyTenK[]>(
+            `https://financialmodelingprep.com/api/v3/sec_filings/${query}?type=10-k&page=0&apikey=${process.env.REACT_APP_API_KEY}`
+        )
+        console.log(data);
+        return data;
+    } catch (error: any) {
+        console.log("error message at getTenK from API: ", error.message);
     }
 }

@@ -343,3 +343,13 @@ export interface CompanyComparableData {
     symbol: string;
     peersList: string[];
 }
+
+
+export interface CompanyTenK {
+    symbol: string;
+    fillingDate: string;
+    acceptedDate: string;
+    cik: string;
+    link: string;
+    finalLink: string;
+}
