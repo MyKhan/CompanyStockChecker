@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CompanyBalanceSheet, CompanyCashFlow, CompanyIncomeStatement, CompanyKeyMetrics, CompanyProfile, CompanySearch } from "./company.d";
+import { CompanyBalanceSheet, CompanyCashFlow, CompanyComparableData, CompanyIncomeStatement, CompanyKeyMetrics, CompanyProfile, CompanySearch } from "./company.d";
 // const { AxiosError } = axios;
 
 interface SearchResponse {
@@ -68,7 +68,7 @@ export const getIncomeStatement = async (query: string) => {
 export const getBalanceSheet = async (query: string) => {
     try {
         const data = await axios.get<CompanyBalanceSheet[]>(
-            `https://financialmodelingprep.com/api/v3/balance-sheet-statement/AAPL?period=annual&limit=40&apikey=${process.env.REACT_APP_API_KEY}`
+            `https://financialmodelingprep.com/api/v3/balance-sheet-statement/${query}?period=annual&limit=40&apikey=${process.env.REACT_APP_API_KEY}`
         )
         console.log(data);
         return data;
@@ -81,11 +81,25 @@ export const getBalanceSheet = async (query: string) => {
 export const getCashflow = async (query: string) => {
     try {
         const data = await axios.get<CompanyCashFlow[]>(
-            `https://financialmodelingprep.com/api/v3/cash-flow-statement/AAPL?period=annual&limit=40&apikey=${process.env.REACT_APP_API_KEY}`
+            `https://financialmodelingprep.com/api/v3/cash-flow-statement/${query}?period=annual&limit=40&apikey=${process.env.REACT_APP_API_KEY}`
         )
         console.log(data);
         return data;
     } catch (error: any) {
         console.log("error message from API: ", error);
+    }
+}
+
+
+
+export const getComparableData = async (query: string) => {
+    try {
+        const data = await axios.get<CompanyComparableData[]>(
+            `https://financialmodelingprep.com/api/v4/stock_peers?symbol=${query}&apikey=${process.env.REACT_APP_API_KEY}`
+        )
+        console.log(data);
+        return data;
+    } catch (error: any) {
+        console.log("error message at getComparableData from API: ", error);
     }
 }

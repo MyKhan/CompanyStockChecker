@@ -338,3 +338,8 @@ export interface CompanyTenK {
     link: string;
     finalLink: string;
 }
+
+export interface CompanyComparableData {
+    symbol: string;
+    peersList: string[];
+}
